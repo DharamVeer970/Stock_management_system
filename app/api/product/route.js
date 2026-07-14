@@ -2,7 +2,11 @@ import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-    const uri = "mongodb+srv://mongodb:Nfk93X1SVL3WUNJZ@cluster0.9en5ghq.mongodb.net/"; // Replace with your MongoDB Atlas connection string
+    const uri = process.env.MONGODB_URI;
+    // No database configured -> return an empty stock so the UI still renders.
+    if (!uri) {
+        return NextResponse.json({ success: true, products: [] });
+    }
 
     const client = new MongoClient(uri);
 
@@ -22,7 +26,7 @@ export async function POST(request) {
 
     let body = await request.json()
     console.log(body)
-    const uri = "mongodb+srv://mongodb:Nfk93X1SVL3WUNJZ@cluster0.9en5ghq.mongodb.net/"; // Replace with your MongoDB Atlas connection string
+    const uri = process.env.MONGODB_URI;
     const client = new MongoClient(uri);
 
     try {

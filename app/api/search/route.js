@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
     const query = request.nextUrl.searchParams.get("query")
 
-    const uri = "mongodb+srv://mongodb:Nfk93X1SVL3WUNJZ@cluster0.9en5ghq.mongodb.net/"; // Replace with your MongoDB Atlas connection string
+    const uri = process.env.MONGODB_URI;
 
     const client = new MongoClient(uri);
 
